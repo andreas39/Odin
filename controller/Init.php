@@ -1,6 +1,6 @@
 <?php
 
-require ODIN_ROOT . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR . 'shared.php';
+require ODIN_ROOT . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR . 'Shared.php';
 require ODIN_ROOT . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'Route.php';
 
 class Init
@@ -8,14 +8,14 @@ class Init
 	public static function odinInit(){
 
 		if(ODIN_DATA_AUTO_CLEAR){
-			$_REQUEST = clearArray($_REQUEST);
+			$_REQUEST = Shared::clearArray($_REQUEST);
 		}
 
 		$r = Route::get();
 
 		switch($r[0]){
 			case '':
-				echo 'INDEX';
+				Shared::view('index');
 				break;
 
 			case 'api':
@@ -39,7 +39,7 @@ class Init
 				break;
 			
 			default:
-				outputJson(ODIN_ERROR_NOT_FOUND_CODE, ODIN_ERROR_NOT_FOUND_STRING);
+				Shared::view('404');;
 				break;
 		}
 	}

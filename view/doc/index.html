@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="<?=ODIN_WEBSITE_DESCRIPTION;?>">
+	<title><?=ODIN_WEBSITE_DOCUMENT_SITENAME;?> - <?=ODIN_WEBSITE_WEBSITE_NAME;?> - <?=ODIN_WEBSITE_COMPANY_NAME;?></title>
+	<link rel="shortcut icon" href="<?=ODIN_STATIC_FILE_URL;?>/favicon.ico">
+	<link href="<?=ODIN_STATIC_FILE_URL;?>/dev.sky31.com/css/style.css" rel="stylesheet">
+	<link href="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/css/bootstrap.min.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/html5shiv.min.js"></script>
+	<script src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/respond.min.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 column">
+			<div class="col-md-offset-2 col-md-8 page-header">
+				<h2><a href="<?=ODIN_BASE_URL;?>/doc"><?=ODIN_WEBSITE_DOCUMENT_SITENAME;?></a></h2>
+			</div>
+			<div class="col-md-offset-2 col-md-8">
+				<?php
+				foreach($p as $key => $value){
+					echo '<a href="' . ODIN_BASE_URL . '/doc/' . $value['project_name'] . '" class="btn btn-lg">' . $value['project_description'] . '</a>';
+				}
+				?>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8">
+			<h4><div style="float:left;"><font color="#5bc0de">&copy; 2004-<?=date('Y');?> <?=ODIN_WEBSITE_COMPANY_NAME;?></font></div><div style="float:right;"><font color="#5bc0de"><?=ODIN_WEBSITE_BEIAN_ID;?></font></div></h4>
+		</div>
+	</div>
+</div>
+</body>
+</html>

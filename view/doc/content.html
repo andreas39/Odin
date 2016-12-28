@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="<?=ODIN_WEBSITE_DESCRIPTION;?>">
+	<title><?=$p[0]['project_description'];?> - <?=ODIN_WEBSITE_DOCUMENT_SITENAME;?> - <?=ODIN_WEBSITE_WEBSITE_NAME;?> - <?=ODIN_WEBSITE_COMPANY_NAME;?></title>
+	<link rel="shortcut icon" href="<?=ODIN_STATIC_FILE_URL;?>/favicon.ico">
+	<link href="<?=ODIN_STATIC_FILE_URL;?>/dev.sky31.com/css/style.css" rel="stylesheet">
+	<link href="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/css/bootstrap.min.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/html5shiv.min.js"></script>
+	<script src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/respond.min.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=ODIN_STATIC_FILE_URL;?>/bootstrap-3.0.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 column">
+			<div class="col-md-offset-2 col-md-8 page-header">
+				<h2><a href="<?=ODIN_BASE_URL;?>/doc"><?=ODIN_WEBSITE_DOCUMENT_SITENAME;?></a> - <a href="<?=ODIN_BASE_URL;?>/doc/<?=$p[0]['project_name'];?>"><?=$p[0]['project_description'];?></a></h2>
+			</div>
+			<?php
+			foreach($p as $key => $value){
+			?>
+			<div class="col-md-offset-2 col-md-8">
+				<h3><?=$key + 1;?>.<?php echo $value['interface_status'] == 1 ? $value['interface_description'] : '<del>' . $value['interface_description'] . '</del>(已停用)'; ?></h3>
+				<pre>URL：<?=ODIN_BASE_URL;?>/api/<?=$value['project_name'];?>/<?=$value['interface_name'];?></pre>
+				<p>访问方式：GET、POST(推荐)</p>
+				<P>参数：</P>
+				<table class="table table-striped table-bordered">
+					<tr>
+						<th>参数名</th>
+						<th>类型</th>
+						<th>描述</th>
+						<th>示例</th>
+					</tr>
+			<?php
+			$pList = json_decode($value['interface_parameters'], true);
+			foreach($pList as $k => $v){
+				if($v['ptype'] == 1){
+					echo '<tr>' . "\n";
+					echo '<td>' . $v['name'] . '</td>' . "\n";
+					echo '<td>' . $v['type'] . '</td>' . "\n";
+					echo '<td>' . $v['description'] . '</td>' . "\n";
+					echo '<td>' . $v['example'] . '</td>' . "\n";
+					echo '</tr>' . "\n";
+				}
+			}
+			?>
+					<tr>
+						<td colspan="4"></td>
+					</tr>
+			<?php
+			foreach($pList as $k => $v){
+				if($v['ptype'] == 2){
+					echo '<tr>' . "\n";
+					echo '<td>' . $v['name'] . '</td>' . "\n";
+					echo '<td>' . $v['type'] . '</td>' . "\n";
+					echo '<td>' . $v['description'] . '</td>' . "\n";
+					echo '<td>' . $v['example'] . '</td>' . "\n";
+					echo '</tr>' . "\n";
+				}
+			}
+			?>
+				</table>
+				<P>说明及调用成功的返回值示例：</P>
+<pre>
+<?=$value['interface_usage'];?>
+</pre>
+			<hr />
+			</div>
+			<?php
+			}
+			?>
+			<div class="col-md-offset-2 col-md-8">
+				<h3>*.返回值说明</h3>
+				<table class="table table-striped table-bordered">
+					<tr>
+						<th>返回值</th>
+						<th>说明</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8">
+			<h4><div style="float:left;"><font color="#5bc0de">&copy; 2004-<?=date('Y');?> <?=ODIN_WEBSITE_COMPANY_NAME;?></font></div><div style="float:right;"><font color="#5bc0de"><?=ODIN_WEBSITE_BEIAN_ID;?></font></div></h4>
+		</div>
+	</div>
+</div>
+</body>
+</html>

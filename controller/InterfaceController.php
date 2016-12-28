@@ -13,7 +13,7 @@ class InterfaceController{
 			$hash = $_REQUEST['hash'];
 		}
 		else
-			exit(outputJson(ODIN_ERROR_MISSING_PARAMETER_CODE, ODIN_ERROR_MISSING_PARAMETER_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_MISSING_PARAMETER_CODE, ODIN_ERROR_MISSING_PARAMETER_STRING));
 
 		$if = new Interfaces();
 		$ifInfo = $if->info($project, $interface);
@@ -30,25 +30,25 @@ class InterfaceController{
 
 	public static function checkIfInfo($ifInfo){
 		if(!isset($ifInfo[0]))
-			exit(outputJson(ODIN_ERROR_NO_SUCH_INTERFACE_CODE, ODIN_ERROR_NO_SUCH_INTERFACE_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_NO_SUCH_INTERFACE_CODE, ODIN_ERROR_NO_SUCH_INTERFACE_STRING));
 		if($ifInfo[0]['interface_status'] == 2)
-			exit(outputJson(ODIN_ERROR_INTERFACE_DISABLED_CODE, ODIN_ERROR_INTERFACE_DISABLED_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_INTERFACE_DISABLED_CODE, ODIN_ERROR_INTERFACE_DISABLED_STRING));
 		$interfaceParameters = json_decode($ifInfo[0]['interface_parameters'], true);
 		foreach($interfaceParameters as $key => $value){
 			if(empty($_REQUEST[$key]))
-				exit(outputJson(ODIN_ERROR_MISSING_PARAMETER_CODE, ODIN_ERROR_MISSING_PARAMETER_STRING));
+				exit(Shared::outputJson(ODIN_ERROR_MISSING_PARAMETER_CODE, ODIN_ERROR_MISSING_PARAMETER_STRING));
 		}
 	}
 
 	public static function checkUserInfo($userInfo, $ifInfo){
 		if(!isset($userInfo[0]))
-			exit(outputJson(ODIN_ERROR_WRONG_HASH_CODE, ODIN_ERROR_WRONG_HASH_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_WRONG_HASH_CODE, ODIN_ERROR_WRONG_HASH_STRING));
 		if($userInfo[0]['user_status'] == 2)
-			exit(outputJson(ODIN_ERROR_ACCOUNT_DISABLED_CODE, ODIN_ERROR_ACCOUNT_DISABLED_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_ACCOUNT_DISABLED_CODE, ODIN_ERROR_ACCOUNT_DISABLED_STRING));
 		if($userInfo[0]['user_left'] <= 0)
-			exit(outputJson(ODIN_ERROR_NO_TIME_LEFT_CODE, ODIN_ERROR_NO_TIME_LEFT_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_NO_TIME_LEFT_CODE, ODIN_ERROR_NO_TIME_LEFT_STRING));
 		if($userInfo[0]['user_rank_id'] < $ifInfo[0]['interface_allow_rank_id'])
-			exit(outputJson(ODIN_ERROR_NO_PERMISSION_CODE, ODIN_ERROR_NO_PERMISSION_STRING));
+			exit(Shared::outputJson(ODIN_ERROR_NO_PERMISSION_CODE, ODIN_ERROR_NO_PERMISSION_STRING));
 	}
 
 	public static function executeProgram($ifInfo){
@@ -65,7 +65,7 @@ class InterfaceController{
 				break;
 
 			default:
-				exit(outputJson(ODIN_ERROR_SYSTEM_ERROR_CODE, ODIN_ERROR_SYSTEM_ERROR_STRING));
+				exit(Shared::outputJson(ODIN_ERROR_SYSTEM_ERROR_CODE, ODIN_ERROR_SYSTEM_ERROR_STRING));
 				break;
 		}
 	}
